@@ -134,7 +134,7 @@ void Step_Ends(Field* u, Field* du,SysParams* sys) {
 
 void ICN_Evolve(Field* u, Field* u_new,Field* du, Field* u_half, SysParams* sys) {
 	Step_Ends(u,du,sys);
-	Add_Dissapation(u, du,sys);
+	// Add_Dissapation(u, du,sys);
 	int I = 0;
 	for(I = 0; I < sys->NF*sys->NX*sys->NY*sys->NZ; I++) {
 		u_new[I] = u[I] + sys->dt * du[I];
@@ -143,7 +143,7 @@ void ICN_Evolve(Field* u, Field* u_new,Field* du, Field* u_half, SysParams* sys)
 	}
 	
 	Step_Ends(u_half,du,sys);
-	Add_Dissapation(u_half,du,sys);
+	// Add_Dissapation(u_half,du,sys);
 	for(I = 0; I < sys->NF*sys->NX*sys->NY*sys->NZ; I++) {
 		u_new[I] = u[I] + sys->dt * du[I];
 		u_half[I] = (u[I] + u_new[I])/2.0f;
@@ -151,7 +151,7 @@ void ICN_Evolve(Field* u, Field* u_new,Field* du, Field* u_half, SysParams* sys)
 	}
 
 	Step_Ends(u_half,du,sys);
-	Add_Dissapation(u_half,du,sys);
+	// Add_Dissapation(u_half,du,sys);
 	for(I = 0; I < sys->NF*sys->NX*sys->NY*sys->NZ; I++) {
 		u_new[I] = u[I] + sys->dt * du[I];
 		du[I] = 0.0f;
@@ -195,7 +195,7 @@ void Integrate(Field* u, Field* u_new, SysParams* sys) {
 			t_frac += 1.0f/float(t_count);
 			std::cout << "#" << std::flush;
 			if(sys->enable_plots) {
-				Plot2D(u,0,1,sys->NY/2,sys);
+				Plot2D(u,1,1,sys->NY/2,sys);
 			}
 		}
 	}
